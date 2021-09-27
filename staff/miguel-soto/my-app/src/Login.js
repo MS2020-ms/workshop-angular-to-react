@@ -1,4 +1,3 @@
-
 import './Login.css'
 import { logino } from './user.service'
 import { Component } from 'react'
@@ -39,6 +38,7 @@ class Login extends Component {
     //Render:
     render() {
         return <form className="Login" onSubmit={this.handleSubmit}>
+            <p>Login:</p>
             <input type="email" name="email" placeholder="e-mail" />
             <input type="password" name="password" placeholder="password" />
             <button>LogIn</button>
