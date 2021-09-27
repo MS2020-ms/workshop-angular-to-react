@@ -86,3 +86,6 @@ Desde App hace algo (onLogin)=evento desde un componente hijo Login
 Convertir mi App de tipo funcion a tipo de clase React
 ## Crear un registro de usuarios
 Crear archivo src/Register.js
+Ir a user.service.js -> function register
+## Ver en la Home el usuario (nombre)
+Ir a user.service.js -> function retrieve
