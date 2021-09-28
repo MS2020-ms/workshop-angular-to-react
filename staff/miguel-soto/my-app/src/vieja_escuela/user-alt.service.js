@@ -1,4 +1,4 @@
-import { validateEmail } from './utils';
+import { validateEmail } from '../utils/utils';
 
 export function logino(email, password) {
     //Al no tener TypeScript de base tengo que condicionar lo recibido

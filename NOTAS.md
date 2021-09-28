@@ -47,9 +47,9 @@ Previsualizar archivo md
 >git push -u origin feature/workshop
 En Github: hacer un Pull Request de la rama feature/workshop -a-> develop (NUNCA a main)
 
-# Para trabajar en PC de otro -> Anydesk (escritorio remoto)
+# Para trabajar en PC de otra persona -> Anydesk (escritorio remoto)
 
-# REACT (my-app)
+# REACT (my-app) = VIEJA ESCUELA = layered architecture
 Archivo src/App.js -> no trabaja en js sino en jsx
 https://ru.react.js.org/docs/thinking-in-react.html
 
@@ -74,10 +74,10 @@ Creo src/user.service.js
 Creo src/utils.js (regex) e importar en el service
 ## para llamadas a una api o servidor tenemos fetch() o axios (libreria externa)
 probar e-mail: pepigri@mail.com y password: 123123123
-## Convertir componente tipo funcion Login-alt.js en componente react Login.js
+## Convertir componente tipo funcion Login-alt.js a componente react Login.js
 Trabajando con clases 
-Manejo estados
-Creo archivo src/Login-class-2.js
+Manejo estados, en caso de error almacenarlo y genero evento
+Guardo archivo src/Login-alt.js
 Al producirse un cambio de estado (el error pasa de null a tener contenido), se genera una nueva vista render (mensaje en mi formulario)
 ## Panel de acceso a la app
 Crear src/Home.js
@@ -89,3 +89,18 @@ Crear archivo src/Register.js
 Ir a user.service.js -> function register
 ## Ver en la Home el usuario (nombre)
 Ir a user.service.js -> function retrieve
+Crear el compo Home como componente de clase
+## Testing Crear user.service.spec.js
+
+## Convertir componente tipo Login-alt-2.js en componente react Login.js
+Guardo archivo src/Login-alt-2.js
+## Refactorizar compo Login con async-await
+Ir a Login.js
+## Convertir componente tipo Register-alt.js en componente react Register.js
+Guardo archivo src/Register-alt.js
+Ir a Register.js
+
+
+# REACT (my app) = Forma Actual = NUEVA ESCUELA
+## Crear carpeta src/components
+## Crear carpeta src/vieja-escuela

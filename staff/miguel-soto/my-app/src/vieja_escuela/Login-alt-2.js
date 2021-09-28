@@ -1,11 +1,12 @@
-import './Register.css'
-import { registero } from './user.service'
+import './Login.css'
+import { logino } from './user.service'
 import { Component } from 'react'
 
-class Register extends Component {
+class Login extends Component {
     constructor() {
         super()
         this.state = { error: null }
+        //Bindear metodos
         this.handleSubmit = this.handleSubmit.bind(this)
 
     }
@@ -15,12 +16,15 @@ class Register extends Component {
         //para que no se recarge pagina
         event.preventDefault()
 
-        const { target: { name: { value: name }, email: { value: email }, password: { value: password } } } = event
+        const { target: { email: { value: email }, password: { value: password } } } = event
 
         try {
-            registero(name, email, password)
+            logino(email, password)
                 //Guardo mi token en sessionStorage
-                .then(() => { this.props.onRegister() })
+                .then(token => {
+                    sessionStorage.token = token
+                    this.props.onLogin()
+                })
                 //Para manejar errores asincronos que vienen de la api
                 .catch(({ message }) => {
                     this.setState({ error: message })
@@ -34,16 +38,20 @@ class Register extends Component {
     }
     //Render:
     render() {
+        //onSubmit => llamo un callback:
+        //return <form className="Login" onSubmit={event=>{
+        //event.preventDefault(); 
+        //debugger;
+        //alert('Hola, Mundo!)}}>
         return <form className="Login" onSubmit={this.handleSubmit}>
-            <p>Register:</p>
-            <input type="text" name="name" placeholder="name" />
+            <p>Login:</p>
             <input type="email" name="email" placeholder="e-mail" />
             <input type="password" name="password" placeholder="password" />
-            <button>Register</button>
+            <button>LogIn</button>
             {this.state.error && <p>{this.state.error}</p>}
         </form>
     }
 
 }
 
-export default Register
+export default Login

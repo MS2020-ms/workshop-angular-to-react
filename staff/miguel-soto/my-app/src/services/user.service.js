@@ -1,4 +1,4 @@
-import { validateEmail } from './utils';
+import { validateEmail } from '../utils/utils';
 
 export function logino(email, password) {
     //Al no tener TypeScript de base tengo que condicionar lo recibido
@@ -13,6 +13,7 @@ export function logino(email, password) {
 
     //console.log('call API for auth', email, password);
 
+    //Validar credenciales contra endpoint (api) y devolver/guardar token
     return fetch('http://b00tc4mp.herokuapp.com/api/v2/users/auth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -26,7 +27,9 @@ export function logino(email, password) {
                         const { token } = res
 
                         //debugger
-                        return token
+
+                        //Guardo mi token en sessionStorage
+                        sessionStorage.token = token
                     })
             else {
                 if (res.status >= 400 && res.status < 500)
@@ -81,7 +84,9 @@ export function registero(name, email, password) {
 }
 
 //Para mostrar datos del usuario en mi Vista
-export function retrieve(token) {
+export function retrieve() {
+
+    const token = sessionStorage.token
 
     if (typeof token != 'string') throw new TypeError(`${token} is not string`)
     if (!token.trim().length) throw new Error(`token ${token} is empty or blank`)
@@ -94,15 +99,15 @@ export function retrieve(token) {
         .then(res => {
             if (res.ok)
                 return res.json()
-                    .then(res => {
+                    .then(data => {
                         //Aqui tengo toda la informacion del usuario
-                        return res
+                        return data
                     })
             else {
                 if (res.status >= 400 && res.status < 500)
                     return res.json()
-                        .then(res => {
-                            const { error } = res
+                        .then(data => {
+                            const { error } = data
 
                             //debugger
                             throw new Error(error)
@@ -111,4 +116,13 @@ export function retrieve(token) {
                     throw new Error('server error')
             }
         })
+}
+
+export function loggedIn() {
+    // convierte algo no booleano a boolenao (true/false) = !!
+    return !!sessionStorage.token
+}
+
+export function logout() {
+    delete sessionStorage.token
 }
