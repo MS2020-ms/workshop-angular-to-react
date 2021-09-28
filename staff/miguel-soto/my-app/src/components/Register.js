@@ -1,13 +1,14 @@
 import './Register.css'
 import { registero } from '../services/user.service'
-import { Component } from 'react'
+import { useState } from 'react'
 
-class Register extends Component {
+//Hooks = useState
+function Register({ onRegister }) {
 
-    state = { error: null }
+    const [error, setError] = useState()
 
     //Metodo de la clase:
-    handleSubmit = async event => {
+    const handleSubmit = async event => {
         //para que no se recarge pagina
         event.preventDefault()
 
@@ -16,30 +17,26 @@ class Register extends Component {
         try {
             await registero(name, email, password)
             //Guardo mi token en sessionStorage
-            this.props.onRegister()
+            onRegister()
         } catch ({ message }) {
-            //alert(error.message)
             //Se actualiza el estado state -> nuevo render
-            this.setState({ error: message })
+            setError(message)
         }
 
     }
-    //Render:
-    render() {
-        const { state: { error }, handleSubmit } = this
 
-        return <>
-            <h1>Register:</h1>
-            <form className="Login" onSubmit={handleSubmit}>
-                <p>Register:</p>
-                <input type="text" name="name" placeholder="name" />
-                <input type="email" name="email" placeholder="e-mail" />
-                <input type="password" name="password" placeholder="password" />
-                <button>Register</button>
-                {error && <p>{error}</p>}
-            </form>
-        </>
-    }
+    return <>
+        <h1>Register:</h1>
+        <form className="Login" onSubmit={handleSubmit}>
+            <p>Register:</p>
+            <input type="text" name="name" placeholder="name" />
+            <input type="email" name="email" placeholder="e-mail" />
+            <input type="password" name="password" placeholder="password" />
+            <button>Register</button>
+            {error && <p>{error}</p>}
+        </form>
+    </>
+
 
 }
 

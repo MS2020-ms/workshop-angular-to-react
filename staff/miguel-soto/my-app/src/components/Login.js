@@ -1,13 +1,15 @@
 import './Login.css'
 import { logino } from '../services/user.service'
-import { Component } from 'react'
+import { useState } from 'react'
 
-class Login extends Component {
+//Hooks = useState
+//recibo las props con destructuring
+function Login({ onLogin }) {
 
-    state = { error: null }
+    const [error, setError] = useState()
 
     //Metodo de la clase como arrow function (hace auto-binding):
-    handleSubmit = async (event) => {
+    const handleSubmit = async (event) => {
         //para que no se recarge pagina con boton submit
         event.preventDefault()
 
@@ -17,34 +19,25 @@ class Login extends Component {
         try {
             await logino(email, password)
 
-            this.props.onLogin()
+            onLogin()
 
         } catch ({ message }) {
             //alert(error.message)
             //Se actualiza el estado state -> nuevo render
-            this.setState({ error: message })
+            setError(message)
         }
-
     }
-    //Render:
-    render() {
-        //onSubmit => llamo un callback:
-        //return <form className="Login" onSubmit={event=>{
-        //event.preventDefault(); 
-        //debugger;
-        //alert('Hola, Mundo!)}}>
 
-        const { state: { error }, handleSubmit } = this
-        return <>
-            <h1>Login</h1>
-            <form className="Login" onSubmit={handleSubmit}>
-                <input type="email" name="email" placeholder="e-mail" />
-                <input type="password" name="password" placeholder="password" />
-                <button>LogIn</button>
-                {error && <p>{error}</p>}
-            </form>
-        </>
-    }
+
+    return <>
+        <h1>Login</h1>
+        <form className="Login" onSubmit={handleSubmit}>
+            <input type="email" name="email" placeholder="e-mail" />
+            <input type="password" name="password" placeholder="password" />
+            <button>LogIn</button>
+            {error && <p>{error}</p>}
+        </form>
+    </>
 
 }
 
